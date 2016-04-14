@@ -1,0 +1,15 @@
+module(load="imuxsock")
+module(load="imklog")
+module(load="imfile")
+
+$PreserveFQDN on
+$DirCreateMode 0755
+$FileOwner {{ rsyslog_config_FileOwner }}
+$FileGroup {{ rsyslog_config_FileGroup }}
+$FileCreateMode 0640
+$DirCreateMode 0755
+$Umask 0022
+
+
+$WorkDirectory {{ rsyslog_config_WorkDirectory }}
+$IncludeConfig {{ rsyslog_conf_dir }}/*.cfg

@@ -1,0 +1,64 @@
+---
+# tasks file for ansible-role-rsyslog
+
+- include_vars: "{{ ansible_os_family }}.yml"
+
+- include: install-FreeBSD.yml
+  when: ansible_os_family == 'FreeBSD'
+
+- name: Create WorkDirectory
+  file:
+    path: "{{ rsyslog_config_WorkDirectory }}"
+    mode: 0755
+    state: directory
+
+- name: Create conf.d
+  file:
+    path: "{{ rsyslog_conf_dir }}"
+    mode: 0755
+    state: directory
+
+- name: Create main rsyslog.conf
+  template:
+    src: rsyslog.conf.j2
+    dest: "{{ rsyslog_conf_file }}"
+    mode: 0644
+  notify:
+    - Restart rsyslog
+
+- name: Configure as client
+  include: configure-client.yml
+  when: '"client" in rsyslog_mode'
+
+- name: Configure as server
+  include: configure-server.yml
+  when: '"server" in rsyslog_mode'
+
+- name: Configure as local
+  include: configure-local.yml
+  when: '"local" in rsyslog_mode'
+
+# TODO create logrotate module
+- name: Create logrotate configs for rsyslog_default_log_files
+  logrotate:
+    state: present
+    frequency: daily
+    rotate_count: 30
+    files:
+      - "{{ item }}"
+    restart_command: "kill -HUP `cat {{ rsyslog_pid_file }}`"
+  with_items: "{{ rsyslog_default_log_files }}"
+  when: 1 == 0
+
+- name: Ensure default syslog service for the platform is NOT running
+  service:
+    name: "{{ rsyslog_default_syslog_service_name }}"
+    state: stopped
+    enabled: no
+  when: rsyslog_default_syslog_service_name != None
+
+- name: Start rsyslog
+  service:
+    name: "{{ rsyslog_service_name }}"
+    state: started
+    enabled: yes

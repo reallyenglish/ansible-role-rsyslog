@@ -1,0 +1,13 @@
+$template MessagesByHost,   "/var/log/messages"
+$template SecurityByHost,   "/var/log/security"
+$template MaillogByHost,    "/var/log/maillog"
+$template DebugByHost,      "/var/log/debug"
+$template CronByHost,       "/var/log/cron"
+$template AuthByhost,       "/var/log/auth.log"
+
+*.notice;authpriv.none;kern.debug;lpr.info;mail.crit;news.err;daemon.* ?MessagesByHost;RSYSLOG_TraditionalFileFormat
+security.*              ?SecurityByHost;RSYSLOG_TraditionalFileFormat
+auth.info;authpriv.info ?AuthByhost;RSYSLOG_TraditionalFileFormat
+mail.info               ?MaillogByHost;RSYSLOG_TraditionalFileFormat
+cron.*                  ?CronByHost;RSYSLOG_TraditionalFileFormat
+*.=debug                ?DebugByHost;RSYSLOG_TraditionalFileFormat

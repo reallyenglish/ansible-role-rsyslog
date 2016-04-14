@@ -1,0 +1,15 @@
+__rsyslog_service_name: rsyslogd
+__rsyslog_package_name: rsyslog
+__rsyslog_conf_file: /usr/local/etc/rsyslog.conf
+__rsyslog_conf_dir: /usr/local/etc/rsyslog.d
+__rsyslog_default_syslog_service_name: syslogd
+__rsyslog_default_log_files:
+  - /var/log/auth.log
+  - /var/log/cron
+  - /var/log/debug
+  - /var/log/maillog
+  - /var/log/messages
+  - /var/log/security
+__rsyslog_config_FileOwner: root
+__rsyslog_config_FileGroup: wheel
+

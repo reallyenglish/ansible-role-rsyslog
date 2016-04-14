@@ -1,0 +1,9 @@
+- hosts: all
+  roles:
+    - ansible-role-rsyslog
+  vars:
+    rsyslog_mode:
+      - local
+      - client
+    rsyslog_remote_servers:
+      - localhost:5140

@@ -1,0 +1,8 @@
+{% for server in rsyslog_remote_servers -%}
+$ActionQueueType LinkedList
+$ActionQueueFileName {{ server }}-queue
+$ActionResumeRetryCount -1
+$ActionQueueSaveOnShutdown on
+
+*.* @@{{ server }};RSYSLOG_ForwardFormat
+{% endfor -%}
