@@ -63,3 +63,21 @@ describe file("#{rsyslog_config_dir}/200_client.cfg") do
     its(:content) { should match Regexp.escape(r) }
   end
 end
+
+describe file('/tmp/dummy.log') do
+  it { should be_file }
+end
+
+# input(
+#   type="imfile"
+#   File="/tmp/dummy.log"
+#   Tag="dummy"
+#   Facility="local1"
+# )
+
+describe file("#{ rsyslog_config_dir }/900_dummy.log.cfg") do
+  it { should be_file }
+  its(:content) { should match Regexp.escape('File="/tmp/dummy.log"') }
+  its(:content) { should match /Tag="dummy"/ }
+  its(:content) { should match /Facility="local1"/ }
+end

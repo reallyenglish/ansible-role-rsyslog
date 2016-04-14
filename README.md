@@ -26,7 +26,7 @@ Role Variables
 | rsyslog\_config\_WorkDirectory | WorkDirectory | /var/spool/rsyslog |
 | rsyslog\_config\_FileOwner | FileOwner | see var file |
 | rsyslog\_config\_FileGroup | FileGroup | see var file |
-
+| rsyslog\_imfile\_inputs    | a dict of imfile inputs. see below | {} |
 
 Dependencies
 ------------
@@ -47,6 +47,26 @@ Including an example of how to use your role (for instance, with variables passe
           - client
         rsyslog_remote_servers:
           - remote.example.com:514
+
+rsyslog\_imfile\_inputs
+-----------------------
+
+rsyslog\_imfile\_inputs is a hash of files to read.
+
+    rsyslog_imfile_inputs:
+      dummy.log:
+        path: /tmp/dummy.log
+        tag: dummy
+        facility: local1
+
+this creates a config flagment like:
+
+    input(
+      type="imfile"
+      File="/tmp/dummy.log"
+      Tag="dummy"
+      Facility="local1"
+    )
 
 License
 -------

@@ -1,4 +1,6 @@
 - hosts: all
+  pre_tasks:
+    - command: "touch /tmp/dummy.log"
   roles:
     - ansible-role-rsyslog
   vars:
@@ -7,3 +9,8 @@
       - client
     rsyslog_remote_servers:
       - localhost:5140
+    rsyslog_imfile_inputs:
+      dummy.log:
+        path: /tmp/dummy.log
+        tag: dummy
+        facility: local1
