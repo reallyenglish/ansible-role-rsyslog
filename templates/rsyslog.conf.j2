@@ -1,6 +1,6 @@
 module(load="imuxsock")
 module(load="imklog")
-module(load="imfile")
+module(load="imfile" mode="inotify")
 
 $PreserveFQDN on
 $DirCreateMode 0755
@@ -13,3 +13,10 @@ $Umask 0022
 
 $WorkDirectory {{ rsyslog_config_WorkDirectory }}
 $IncludeConfig {{ rsyslog_conf_dir }}/*.cfg
+
+# dummy input to make "rsyslogd -N 1" happy
+input(type="imfile"
+      File="/dev/null"
+      Tag="DevNull:"
+      Severity="error"
+      Facility="local7")
