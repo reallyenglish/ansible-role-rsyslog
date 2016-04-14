@@ -7,7 +7,7 @@ provisioner:
   name: ansible_playbook
   require_chef_for_busser: false
   require_ruby_for_busser: false
-  ansible_verbosity: 3
+  ansible_verbosity: 1
   ansible_verbose: true
 
 platforms:
