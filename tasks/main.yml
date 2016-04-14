@@ -36,7 +36,7 @@
   template:
     src: imfile.cfg.j2
     dest: "{{ rsyslog_conf_dir }}/900_{{ item.key }}.cfg"
-  with_dict: rsyslog_imfile_inputs
+  with_dict: "{{ rsyslog_imfile_inputs }}"
   notify:
     - Restart rsyslog
 
