@@ -4,5 +4,6 @@
   template:
     src: "{{ ansible_os_family }}_local.cfg.j2"
     dest: "{{ rsyslog_conf_dir }}/100_local.cfg"
+    validate: "{{ rsyslog_bin }} -N 1 -f %s"
   notify:
     - Restart rsyslog

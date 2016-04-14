@@ -2,6 +2,7 @@ __rsyslog_service_name: rsyslogd
 __rsyslog_package_name: rsyslog
 __rsyslog_conf_file: /usr/local/etc/rsyslog.conf
 __rsyslog_conf_dir: /usr/local/etc/rsyslog.d
+__rsyslog_bin: /usr/local/sbin/rsyslogd
 __rsyslog_default_syslog_service_name: syslogd
 __rsyslog_default_log_files:
   - /var/log/auth.log

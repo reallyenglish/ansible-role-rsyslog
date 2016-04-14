@@ -4,5 +4,6 @@
   template:
     src: 200_client.cfg.j2
     dest: "{{ rsyslog_conf_dir }}/200_client.cfg"
+    validate: "{{ rsyslog_bin }} -N 1 -f %s"
   notify:
     - Restart rsyslog

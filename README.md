@@ -18,6 +18,7 @@ Role Variables
 | rsyslog_package_name  | package name of rsyslog | see var file |
 | rsyslog_conf_dir      | path to rsyslog.d directory | see var file |
 | rsyslog_conf_file     | path to rsyslog.conf | see var file |
+| rsyslog_bin           | path to rssylogd binary | see var file |
 | rsyslog_mode          | an array of mode to run as. `local` acts as local syslog, logs to local files. `client` acts as a syslog client, forwards logs to remote host. `server` act as a syslog server, receives logs from remote. | local |
 | rsyslog_remote_servers | an array of remote syslog servers in the form of [ remote.example.com:514 ] | [] |
 | rsyslog_default_syslog_service_name | service name of existing syslog service, which will be stopped | see var file |
