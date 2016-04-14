@@ -63,3 +63,5 @@
     name: "{{ rsyslog_service_name }}"
     state: started
     enabled: yes
+
+# TODO install recover_qi.pl
