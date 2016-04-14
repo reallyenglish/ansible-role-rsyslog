@@ -14,18 +14,18 @@ Role Variables
 
 | variable | description | default |
 |----------|-------------|---------|
-| rsyslog_service_name  | service name of rsyslog | see var file |
-| rsyslog_package_name  | package name of rsyslog | see var file |
-| rsyslog_conf_dir      | path to rsyslog.d directory | see var file |
-| rsyslog_conf_file     | path to rsyslog.conf | see var file |
-| rsyslog_bin           | path to rssylogd binary | see var file |
-| rsyslog_mode          | an array of mode to run as. `local` acts as local syslog, logs to local files. `client` acts as a syslog client, forwards logs to remote host. `server` act as a syslog server, receives logs from remote. | local |
-| rsyslog_remote_servers | an array of remote syslog servers in the form of [ remote.example.com:514 ] | [] |
-| rsyslog_default_syslog_service_name | service name of existing syslog service, which will be stopped | see var file |
-| rsyslog_default_log_files | TBW | TBW |
-| rsyslog_config_WorkDirectory | WorkDirectory | /var/spool/rsyslog |
-| rsyslog_config_FileOwner | FileOwner | see var file |
-| rsyslog_config_FileGroup | FileGroup | see var file |
+| rsyslog\_service\_name  | service name of rsyslog | see var file |
+| rsyslog\_package\_name  | package name of rsyslog | see var file |
+| rsyslog\_conf\_dir      | path to rsyslog.d directory | see var file |
+| rsyslog\_conf\_file     | path to rsyslog.conf | see var file |
+| rsyslog\_bin           | path to rssylogd binary | see var file |
+| rsyslog\_mode          | an array of mode to run as. `local` acts as local syslog, logs to local files. `client` acts as a syslog client, forwards logs to remote host. `server` act as a syslog server, receives logs from remote. | local |
+| rsyslog\_remote\_servers | an array of remote syslog servers in the form of [ remote.example.com:514 ] | [] |
+| rsyslog\_default\_syslog\_service\_name | service name of existing syslog service, which will be stopped | see var file |
+| rsyslog\_default\_log\_files | TBW | TBW |
+| rsyslog\_config\_WorkDirectory | WorkDirectory | /var/spool/rsyslog |
+| rsyslog\_config\_FileOwner | FileOwner | see var file |
+| rsyslog\_config\_FileGroup | FileGroup | see var file |
 
 
 Dependencies
