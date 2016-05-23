@@ -1,10 +1,11 @@
 node ('virtualbox') {
+  def directory = "ansible-role-rsyslog"
   stage 'Checkout'
-  sh 'if [ ! -d ansible-role-rsyslog ]; then mkdir ansible-role-rsyslog; fi'
-  dir('ansible-role-rsyslog') {
+  sh "if [ ! -d $directory ]; then mkdir $directory; fi"
+  dir("$directory") {
     checkout scm
   }
-  dir('ansible-role-rsyslog') {
+  dir("$directory") {
     stage 'bundle'
     sh 'bundle install --path vendor/bundle'
     sh 'if vagrant box list | grep trombik/ansible-freebsd-10.3-amd64 >/dev/null; then echo "installed"; else vagrant box add trombik/ansible-freebsd-10.3-amd64; fi'
