@@ -1,7 +1,7 @@
 node ('virtualbox') {
   def directory = "ansible-role-rsyslog"
   stage 'Clean up'
-  deleteDir
+  deleteDir()
   stage 'Checkout'
   sh "if [ ! -d $directory ]; then mkdir $directory; fi"
   dir("$directory") {
