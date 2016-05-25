@@ -17,7 +17,7 @@ node ('virtualbox') {
       sh 'bundle exec kitchen test'
     } finally {
       sh 'bundle exec kitchen destroy'
-i   }
+    }
 
     stage 'Notify'
     step([$class: 'GitHubCommitNotifier', resultOnFailure: 'FAILURE'])
