@@ -12,7 +12,6 @@ os_default_syslog_service_name = 'syslogd'
 
 case os[:family]
 when 'freebsd'
-  rsyslog_package_name = 'rsyslog8'
   rsyslog_service_name = 'rsyslogd'
   rsyslog_config_path  = '/usr/local/etc/rsyslog.conf'
   rsyslog_config_dir   = '/usr/local/etc/rsyslog.d'
