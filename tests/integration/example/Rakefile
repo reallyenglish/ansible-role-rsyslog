@@ -42,6 +42,7 @@ end
 desc 'rm roles/*'
 task :clean_role do
   sh 'rm -rf roles/*'
+  sh 'rm -f *.retry'
 end
 
 desc 'prepare the test environment'
