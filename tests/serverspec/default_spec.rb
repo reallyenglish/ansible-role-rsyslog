@@ -3,12 +3,13 @@ require 'serverspec'
 
 rsyslog_package_name = 'rsyslog'
 rsyslog_service_name = 'rsyslog'
-rsyslog_config       = '/etc/rsyslog/rsyslog.conf'
-rsyslog_user_name    = 'rsyslog'
-rsyslog_user_group   = 'rsyslog'
+rsyslog_user_name    = 'root'
+rsyslog_user_group   = 'root'
 rsyslog_work_dir     = '/var/spool/rsyslog'
+rsyslog_config_dir   = '/etc/rsyslog.d'
+rsyslog_config_path  = '/etc/rsyslog.conf'
 
-os_default_syslog_service_name = 'syslogd'
+os_default_syslog_service_name = nil
 
 case os[:family]
 when 'freebsd'
@@ -19,6 +20,7 @@ when 'freebsd'
   rsyslog_user_group   = 'wheel'
   os_default_syslog_service_name = 'syslogd'
 end
+
 
 describe package(rsyslog_package_name) do
   it { should be_installed }
