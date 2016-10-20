@@ -1,15 +1,12 @@
-ansible-role-rsyslog
-====================
+# ansible-role-rsyslog
 
 Install rsyslog
 
-Requirements
-------------
+# Requirements
 
 None
 
-Role Variables
---------------
+# Role Variables
 
 
 | variable | description | default |
@@ -28,13 +25,11 @@ Role Variables
 | rsyslog\_config\_FileGroup | FileGroup | see var file |
 | rsyslog\_imfile\_inputs    | a dict of imfile inputs. see below | {} |
 
-Dependencies
-------------
+# Dependencies
 
 None
 
-Example Playbook
-----------------
+# Example Playbook
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
 
@@ -48,8 +43,7 @@ Including an example of how to use your role (for instance, with variables passe
         rsyslog_remote_servers:
           - remote.example.com:514
 
-rsyslog\_imfile\_inputs
------------------------
+## rsyslog\_imfile\_inputs
 
 rsyslog\_imfile\_inputs is a hash of files to read.
 
@@ -68,12 +62,10 @@ this creates a config flagment like:
       Facility="local1"
     )
 
-License
--------
+# License
 
 BSD
 
-Author Information
-------------------
+# Author Information
 
 Tomoyuki Sakurai <tomoyukis@reallyenglish.com>
