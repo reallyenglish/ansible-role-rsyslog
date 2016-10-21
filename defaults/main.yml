@@ -19,3 +19,6 @@ rsyslog_default_log_files: "{{ __rsyslog_default_log_files }}"
 rsyslog_config_WorkDirectory: "/var/spool/rsyslog"
 rsyslog_config_FileOwner: "{{ __rsyslog_config_FileOwner }}"
 rsyslog_config_FileGroup: "{{ __rsyslog_config_FileGroup }}"
+rsyslog_imfile_inputs: {}
+
+rsyslog_server_config_AllowedSender: []

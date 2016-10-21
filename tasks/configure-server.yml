@@ -1,0 +1,9 @@
+---
+
+- name: Create 400_server.cfg.j2
+  template:
+    src: 400_server.cfg.j2
+    dest: "{{ rsyslog_conf_dir }}/400_server.cfg"
+    #validate: "{{ rsyslog_bin }} -N 1 -f %s"
+  notify:
+    - Restart rsyslog

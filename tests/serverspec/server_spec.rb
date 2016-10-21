@@ -20,6 +20,8 @@ when 'freebsd'
   os_default_syslog_service_name = 'syslogd'
 end
 
+rsyslog_server_config_path = "#{ rsyslog_config_dir }/400_server.cfg"
+
 
 describe package(rsyslog_package_name) do
   it { should be_installed }
@@ -39,7 +41,7 @@ if os_default_syslog_service_name && 0 == 1
 end
 
 describe port(514) do
-  it { should_not be_listening }
+  it { should be_listening }
 end
 
 describe file(rsyslog_config_path) do
@@ -50,34 +52,8 @@ describe file(rsyslog_config_path) do
   its(:content) { should match Regexp.escape("$IncludeConfig #{rsyslog_config_dir}/*.cfg") }
 end
 
-describe file("#{rsyslog_config_dir}/200_client.cfg") do
-  regex_to_test = [
-    '$ActionQueueType LinkedList',
-    '$ActionQueueFileName localhost:5140-queue',
-    '$ActionResumeRetryCount -1',
-    '$ActionQueueSaveOnShutdown on',
-    '*.* @@localhost:5140;RSYSLOG_ForwardFormat'
-  ]
+describe file(rsyslog_server_config_path) do
   it { should be_file }
-  regex_to_test.each do |r|
-    its(:content) { should match Regexp.escape(r) }
-  end
-end
-
-describe file('/tmp/dummy.log') do
-  it { should be_file }
-end
-
-# input(
-#   type="imfile"
-#   File="/tmp/dummy.log"
-#   Tag="dummy"
-#   Facility="local1"
-# )
-
-describe file("#{ rsyslog_config_dir }/900_dummy.log.cfg") do
-  it { should be_file }
-  its(:content) { should match Regexp.escape('File="/tmp/dummy.log"') }
-  its(:content) { should match /Tag="dummy"/ }
-  its(:content) { should match /Facility="local1"/ }
+  its(:content) { should match Regexp.escape('$AllowedSender UDP, 192.168.0.0/16') }
+  its(:content) { should match Regexp.escape('$AllowedSender TCP, 192.168.0.0/16') }
 end
