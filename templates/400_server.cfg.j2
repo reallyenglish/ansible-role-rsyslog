@@ -3,5 +3,7 @@ $ModLoad imtcp.so
 
 $UDPServerRun 514
 $InputTCPServerRun 514
-$AllowedSender UDP, 10.0.0.0/8
-$AllowedSender TCP, 10.0.0.0/8
+
+{% for i in rsyslog_server_config_AllowedSender %}
+$AllowedSender {{ i }}
+{% endfor %}
