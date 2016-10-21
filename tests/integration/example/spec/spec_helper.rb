@@ -1,5 +1,6 @@
 require 'infrataster/rspec'
 require 'capybara'
+require 'digest'
 
 ENV['VAGRANT_CWD'] = File.dirname(__FILE__)
 ENV['LANG'] = 'C'
