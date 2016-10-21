@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'serverspec'
 
 rsyslog_package_name = 'rsyslog'
 rsyslog_service_name = 'rsyslog'
