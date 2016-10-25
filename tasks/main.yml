@@ -44,7 +44,7 @@
     src: rsyslog.conf.j2
     dest: "{{ rsyslog_conf_file }}"
     mode: 0644
-    #validate: "{{ rsyslog_bin }} -N 1 -f %s"
+    validate: "{{ rsyslog_bin }} -N 1 -f %s"
   notify:
     - Restart rsyslog
 
