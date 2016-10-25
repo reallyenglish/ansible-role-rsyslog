@@ -1,6 +1,10 @@
 module(load="imuxsock")
 module(load="imklog")
+{% if ansible_os_family == 'OpenBSD' and ansible_distribution_release | version_compare('6.0', '<=') %}
+{# imfile is not enabled in the package build #}
+{% else %}
 module(load="imfile" mode="inotify")
+{% endif %}
 
 $PreserveFQDN on
 $DirCreateMode 0755
@@ -14,9 +18,13 @@ $Umask 0022
 $WorkDirectory {{ rsyslog_config_WorkDirectory }}
 $IncludeConfig {{ rsyslog_conf_dir }}/*.cfg
 
+{% if ansible_os_family == 'OpenBSD' and ansible_distribution_release | version_compare('6.0', '<=') %}
+{# imfile is not enabled in the package build #}
+{% else %}
 # dummy input to make "rsyslogd -N 1" happy
 input(type="imfile"
       File="/dev/null"
       Tag="DevNull:"
       Severity="error"
       Facility="local7")
+{% endif %}

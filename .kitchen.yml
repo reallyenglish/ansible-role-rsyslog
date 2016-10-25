@@ -41,6 +41,15 @@ platforms:
       box: trombik/ansible-centos-7.2-x86_64
       box_check_update: false
 
+  - name: openbsd-6.0-amd64
+    driver:
+      box: trombik/ansible-openbsd-6.0-amd64
+      ssh:
+        shell: '/bin/sh'
+    provisioner:
+      extra_vars:
+        ansible_python_interpreter: '/usr/local/bin/python'
+
 suites:
   - name: default
     provisioner:

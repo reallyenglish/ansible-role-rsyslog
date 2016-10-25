@@ -10,8 +10,8 @@
       - client
     rsyslog_remote_servers:
       - localhost:5140
-    rsyslog_imfile_inputs:
-      dummy.log:
-        path: /tmp/dummy.log
-        tag: dummy
-        facility: local1
+    rsyslog_imfile_inputs: "{% if ansible_os_family == 'OpenBSD' %}{}{% else %}{ dummy.log: { path: /tmp/dummy.log, tag: dummy, facility: local1 }{% endif %}"
+#      dummy.log:
+#        path: /tmp/dummy.log
+#        tag: dummy
+#        facility: local1

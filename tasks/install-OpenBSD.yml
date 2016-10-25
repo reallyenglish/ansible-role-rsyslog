@@ -1,0 +1,12 @@
+---
+
+- name: install rsyslog
+  openbsd_pkg:
+    name: rsyslog
+    state: present
+
+- name: copy rc.d script for rsyslogd
+  copy:
+    src: rsyslogd.rc.OpenBSD
+    dest: /etc/rc.d/rsyslogd
+    mode: 0755
