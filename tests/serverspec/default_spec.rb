@@ -44,7 +44,12 @@ if os_default_syslog_service_name && 0 == 1
 end
 
 describe port(514) do
-  it { should_not be_listening }
+  case os['family']
+  when 'openbsd'
+    it { should be_listening }
+  else
+    it { should_not be_listening }
+  end
 end
 
 describe file(rsyslog_config_path) do
@@ -87,7 +92,7 @@ else
   describe file("#{ rsyslog_config_dir }/900_dummy.log.cfg") do
     it { should be_file }
     its(:content) { should match Regexp.escape('File="/tmp/dummy.log"') }
-    its(:content) { should match /Tag="dummy"/ }
-    its(:content) { should match /Facility="local1"/ }
+    its(:content) { should match(/Tag="dummy"/) }
+    its(:content) { should match(/Facility="local1"/) }
   end
 end
