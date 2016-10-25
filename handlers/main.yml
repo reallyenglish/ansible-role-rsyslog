@@ -6,3 +6,9 @@
     name: "{{ rsyslog_service_name }}"
     state: restarted
     enabled: yes
+
+- name: Restart syslogd
+  service:
+    name: syslogd
+    state: restarted
+    enabled: yes
