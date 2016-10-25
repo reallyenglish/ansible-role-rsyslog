@@ -3,6 +3,12 @@
 
 - include_vars: "{{ ansible_os_family }}.yml"
 
+- name: Reconfigure the stock syslogd(8) on OpenBSD
+  include: configure-OpenBSD-syslogd.yml
+  when:
+    - "{{ ansible_os_family == 'OpenBSD' }}"
+    - "{{ 'local' in rsyslog_mode }}"
+
 - include: "install-{{ ansible_os_family }}.yml"
 
 - name: Create WorkDirectory
