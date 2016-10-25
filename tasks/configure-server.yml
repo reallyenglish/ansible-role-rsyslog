@@ -1,5 +1,16 @@
 ---
 
+- name: Configure SELinux policy
+  seport:
+    ports: 5140
+    proto: "{{ item }}"
+    setype: syslogd_port_t
+    state: present
+  with_items:
+    - tcp
+    - udp
+  when: "{{ ansible_os_family == 'RedHat' }}"
+
 - name: Create 400_server.cfg.j2
   template:
     src: 400_server.cfg.j2
