@@ -1,0 +1,9 @@
+*.notice;auth,authpriv,cron,ftp,kern,lpr,mail,user.none /var/log/messages;RSYSLOG_TraditionalFileFormat
+kern.debug;syslog,user.info                             /var/log/messages;RSYSLOG_TraditionalFileFormat
+auth.info                                               /var/log/authlog;RSYSLOG_TraditionalFileFormat
+authpriv.debug                                          /var/log/secure;RSYSLOG_TraditionalFileFormat
+cron.info                                               /var/cron/log;RSYSLOG_TraditionalFileFormat
+daemon.info                                             /var/log/daemon;RSYSLOG_TraditionalFileFormat
+ftp.info                                                /var/log/xferlog;RSYSLOG_TraditionalFileFormat
+lpr.debug                                               /var/log/lpd-errs;RSYSLOG_TraditionalFileFormat
+mail.info                                               /var/log/maillog;RSYSLOG_TraditionalFileFormat

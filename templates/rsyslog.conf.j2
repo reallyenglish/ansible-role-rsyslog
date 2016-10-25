@@ -1,6 +1,24 @@
 module(load="imuxsock")
+{% if ansible_os_family == 'OpenBSD' and ansible_distribution_release | version_compare('6.0', '<=') %}
+{# /dev/log is used by syslogd(8) #}
+{# imfile is not enabled in the package build #}
+{% else %}
 module(load="imklog")
-module(load="imfile" mode="inotify")
+{% endif %}
+
+{% if rsyslog_imfile_inputs is defined and rsyslog_imfile_inputs | length > 0 %}
+{% if (ansible_os_family == 'RedHat') and (ansible_distribution_version | version_compare('7.2.1511', '<=')) %}
+{# parameter 'mode' not known #}
+module(
+    load="imfile"
+)
+{% else %}
+module(
+    load="imfile"
+    mode="inotify"
+)
+{% endif %}
+{% endif %}
 
 $PreserveFQDN on
 $DirCreateMode 0755
@@ -14,9 +32,27 @@ $Umask 0022
 $WorkDirectory {{ rsyslog_config_WorkDirectory }}
 $IncludeConfig {{ rsyslog_conf_dir }}/*.cfg
 
+{% if rsyslog_imfile_inputs is defined and rsyslog_imfile_inputs | length > 0 %}
+{% if ansible_os_family == 'OpenBSD' and ansible_distribution_release | version_compare('6.0', '<=') %}
+{# imfile is not enabled in the package build #}
+{% else %}
 # dummy input to make "rsyslogd -N 1" happy
-input(type="imfile"
-      File="/dev/null"
-      Tag="DevNull:"
-      Severity="error"
-      Facility="local7")
+{% if (ansible_os_family == 'RedHat') and (ansible_distribution_version | version_compare('7.2.1511', '<=')) %}
+$ModLoad imfile
+$InputFileName "/dev/null"
+$InputFileTag DevNull:
+$InputFileStateFile dev_null
+$InputFileSeverity error
+$InputFileFacility local7
+$InputRunFileMonitor
+{% else %}
+input(
+    type="imfile"
+    File="/dev/null"
+    Tag="DevNull:"
+    Severity="error"
+    Facility="local7"
+)
+{% endif %}
+{% endif %}
+{% endif %}

@@ -18,6 +18,9 @@ when 'freebsd'
   rsyslog_user_name    = 'root'
   rsyslog_user_group   = 'wheel'
   os_default_syslog_service_name = 'syslogd'
+when 'openbsd'
+  rsyslog_service_name = 'rsyslogd'
+  rsyslog_user_group   = 'wheel'
 end
 
 rsyslog_server_config_path = "#{ rsyslog_config_dir }/400_server.cfg"
@@ -40,7 +43,7 @@ if os_default_syslog_service_name && 0 == 1
   end
 end
 
-describe port(514) do
+describe port(5140) do
   it { should be_listening }
 end
 

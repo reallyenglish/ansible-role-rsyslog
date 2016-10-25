@@ -1,6 +1,16 @@
 # ansible-role-rsyslog
 
-Install rsyslog
+Install rsyslog.
+
+## Note for OpenBSD
+
+Applications in base does not use `/dev/log`. This is because, instead of
+`syslog(3)`, they use `sendsyslog(2)`, which was introduced in 5.6. The role
+does not yet support this change, which means if you use the role, `rsyslog`
+logs only from third-party applications. You will lost everything else.
+
+The `rsyslog` package in the ports tree does not enable `imfile` module. You
+cannot use it.
 
 # Requirements
 

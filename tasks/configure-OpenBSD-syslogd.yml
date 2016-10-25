@@ -1,0 +1,8 @@
+---
+
+- name: Create syslog.conf(5) to forward all logs to local rsyslogd
+  template:
+    src: OpenBSD_syslog.conf.j2
+    dest: /etc/syslog.conf
+  notify:
+    - Restart syslogd

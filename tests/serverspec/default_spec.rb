@@ -18,6 +18,11 @@ when 'freebsd'
   rsyslog_user_name    = 'root'
   rsyslog_user_group   = 'wheel'
   os_default_syslog_service_name = 'syslogd'
+when 'openbsd'
+  rsyslog_service_name = 'rsyslogd'
+  rsyslog_user_name    = 'root'
+  rsyslog_user_group   = 'wheel'
+  os_default_syslog_service_name = 'syslogd'
 end
 
 
@@ -38,8 +43,15 @@ if os_default_syslog_service_name && 0 == 1
   end
 end
 
-describe port(514) do
-  it { should_not be_listening }
+case os[:family]
+when 'openbsd'
+  describe port(514) do
+    it { should be_listening }
+  end
+else
+  describe port(514) do
+    it { should_not be_listening }
+  end
 end
 
 describe file(rsyslog_config_path) do
@@ -53,10 +65,10 @@ end
 describe file("#{rsyslog_config_dir}/200_client.cfg") do
   regex_to_test = [
     '$ActionQueueType LinkedList',
-    '$ActionQueueFileName localhost:5140-queue',
+    '$ActionQueueFileName 10.0.2.115:5140-queue',
     '$ActionResumeRetryCount -1',
     '$ActionQueueSaveOnShutdown on',
-    '*.* @@localhost:5140;RSYSLOG_ForwardFormat'
+    '*.* @@10.0.2.115:5140;RSYSLOG_ForwardFormat'
   ]
   it { should be_file }
   regex_to_test.each do |r|
@@ -64,20 +76,25 @@ describe file("#{rsyslog_config_dir}/200_client.cfg") do
   end
 end
 
-describe file('/tmp/dummy.log') do
-  it { should be_file }
-end
+case os[:family]
+when 'openbsd'
+  # rsyslog package does not install imfile
+else
+  describe file('/tmp/dummy.log') do
+    it { should be_file }
+  end
 
-# input(
-#   type="imfile"
-#   File="/tmp/dummy.log"
-#   Tag="dummy"
-#   Facility="local1"
-# )
+  # input(
+  #   type="imfile"
+  #   File="/tmp/dummy.log"
+  #   Tag="dummy"
+  #   Facility="local1"
+  # )
 
-describe file("#{ rsyslog_config_dir }/900_dummy.log.cfg") do
-  it { should be_file }
-  its(:content) { should match Regexp.escape('File="/tmp/dummy.log"') }
-  its(:content) { should match /Tag="dummy"/ }
-  its(:content) { should match /Facility="local1"/ }
+  describe file("#{ rsyslog_config_dir }/900_dummy.log.cfg") do
+    it { should be_file }
+    its(:content) { should match Regexp.escape('File="/tmp/dummy.log"') }
+    its(:content) { should match(/Tag="dummy"/) }
+    its(:content) { should match(/Facility="local1"/) }
+  end
 end
