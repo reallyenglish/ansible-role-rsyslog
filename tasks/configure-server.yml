@@ -1,14 +1,21 @@
 ---
 
-- name: Configure SELinux policy
+- name: Configure SELinux policy (TCP)
   seport:
-    ports: 5140
-    proto: "{{ item }}"
+    ports: "{{ item }}"
+    proto: tcp
     setype: syslogd_port_t
     state: present
-  with_items:
-    - tcp
-    - udp
+  with_items: "{{ rsyslog_server_config_listen_port }}"
+  when: "{{ ansible_os_family == 'RedHat' }}"
+
+- name: Configure SELinux policy (UDP)
+  seport:
+    ports: "{{ item }}"
+    proto: udp
+    setype: syslogd_port_t
+    state: present
+  with_items: "{{ rsyslog_server_config_listen_port }}"
   when: "{{ ansible_os_family == 'RedHat' }}"
 
 - name: Create 400_server.cfg.j2

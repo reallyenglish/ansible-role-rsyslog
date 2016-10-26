@@ -7,7 +7,7 @@
   vars:
     rsyslog_mode: "{% if ansible_os_family == 'OpenBSD' %}[ 'local', 'server', 'client' ]{% else %}[ 'local', 'client' ]{% endif %}"
     rsyslog_remote_servers:
-      - 10.0.2.115:5140
+      - 10.0.2.115:514
     rsyslog_imfile_inputs: "{% if ansible_os_family == 'OpenBSD' %}{}{% else %}{ 'dummy.log': { 'path': '/tmp/dummy.log', 'tag': 'dummy', 'facility': 'local1' } }{% endif %}"
     rsyslog_server_config_AllowedSender: "{% if ansible_os_family == 'OpenBSD' %}[ 'UDP, 127.0.0.1' ]{% else %}[]{% endif %}"
 #      dummy.log:

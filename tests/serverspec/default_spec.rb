@@ -7,6 +7,7 @@ rsyslog_user_group   = 'root'
 rsyslog_work_dir     = '/var/spool/rsyslog'
 rsyslog_config_dir   = '/etc/rsyslog.d'
 rsyslog_config_path  = '/etc/rsyslog.conf'
+rsyslog_default_log_file = '/var/log/messages'
 
 os_default_syslog_service_name = nil
 
@@ -23,6 +24,8 @@ when 'openbsd'
   rsyslog_user_name    = 'root'
   rsyslog_user_group   = 'wheel'
   os_default_syslog_service_name = 'syslogd'
+when 'ubuntu'
+  rsyslog_default_log_file = '/var/log/syslog'
 end
 
 
@@ -65,10 +68,10 @@ end
 describe file("#{rsyslog_config_dir}/200_client.cfg") do
   regex_to_test = [
     '$ActionQueueType LinkedList',
-    '$ActionQueueFileName 10.0.2.115:5140-queue',
+    '$ActionQueueFileName 10.0.2.115:514-queue',
     '$ActionResumeRetryCount -1',
     '$ActionQueueSaveOnShutdown on',
-    '*.* @@10.0.2.115:5140;RSYSLOG_ForwardFormat'
+    '*.* @@10.0.2.115:514;RSYSLOG_ForwardFormat'
   ]
   it { should be_file }
   regex_to_test.each do |r|
@@ -97,4 +100,17 @@ else
     its(:content) { should match(/Tag="dummy"/) }
     its(:content) { should match(/Facility="local1"/) }
   end
+end
+
+sig = Digest::SHA256.hexdigest(Time.new.to_i.to_s)
+describe command("logger #{ Shellwords.escape(sig) }") do
+  its(:stderr) { should eq '' }
+  its(:stdout) { should eq '' }
+  its(:exit_status) { should eq 0 }
+end
+
+describe command("grep #{ Shellwords.escape(sig) } #{ Shellwords.escape(rsyslog_default_log_file) }") do
+  its(:stderr) { should eq '' }
+  its(:stdout) { should match(/#{ Regexp.escape(sig) }/) }
+  its(:exit_status) { should eq 0 }
 end

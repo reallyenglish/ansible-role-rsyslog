@@ -3,19 +3,22 @@
 0649.551480000:main Q:Reg/w0  : processBATCH: next msg 1: <43>2016-10-25T07:30:47.408961+00:00 default-openbsd-60-amd64 rsyslogd: imudp: cannot set thread scheduling policy, pthread_sets
 0649.553858000:main Q:Reg/w0  : omfile: write to stream, pData->pStrm 0xb2781008200, lenBuf 143, strt data Oct 25 07:30:47 default-openbsd-60-amd64 rsyslogd: imudp: cannot set thread scheduling policy, pthread_setschedparam() not avail
 #}
+{% for port in rsyslog_server_config_listen_port %}
 {% if ansible_os_family != 'OpenBSD' %}
 module(load="imudp")
 input(
     type="imudp"
-    port="5140"
+    port="{{ port }}"
 )
 {% endif %}
 
 module(load="imtcp")
 input(
     type="imtcp"
-    port="5140"
+    port="{{ port }}"
 )
+{% endfor %}
+
 
 {% for i in rsyslog_server_config_AllowedSender %}
 $AllowedSender {{ i }}

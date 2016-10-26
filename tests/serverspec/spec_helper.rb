@@ -1,4 +1,6 @@
 require 'serverspec'
+require 'digest'
+require 'shellwords'
 
 set :backend, :ssh
 
