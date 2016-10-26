@@ -12,6 +12,8 @@ logs only from third-party applications. You will lost everything else.
 The `rsyslog` package in the ports tree does not enable `imfile` module. You
 cannot use it.
 
+Port 514 cannot used with `rsyslog_mode` == `local`.
+
 # Requirements
 
 None

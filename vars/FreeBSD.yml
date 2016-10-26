@@ -13,4 +13,5 @@ __rsyslog_default_log_files:
   - /var/log/security
 __rsyslog_config_FileOwner: root
 __rsyslog_config_FileGroup: wheel
-
+__rsyslog_server_config_listen_port:
+  - 514

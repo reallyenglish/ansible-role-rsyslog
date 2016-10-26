@@ -65,10 +65,10 @@ end
 describe file("#{rsyslog_config_dir}/200_client.cfg") do
   regex_to_test = [
     '$ActionQueueType LinkedList',
-    '$ActionQueueFileName 10.0.2.115:5140-queue',
+    '$ActionQueueFileName 10.0.2.115:514-queue',
     '$ActionResumeRetryCount -1',
     '$ActionQueueSaveOnShutdown on',
-    '*.* @@10.0.2.115:5140;RSYSLOG_ForwardFormat'
+    '*.* @@10.0.2.115:514;RSYSLOG_ForwardFormat'
   ]
   it { should be_file }
   regex_to_test.each do |r|

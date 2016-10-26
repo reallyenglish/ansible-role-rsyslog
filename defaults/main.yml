@@ -22,3 +22,4 @@ rsyslog_config_FileGroup: "{{ __rsyslog_config_FileGroup }}"
 rsyslog_imfile_inputs: {}
 
 rsyslog_server_config_AllowedSender: []
+rsyslog_server_config_listen_port: "{{ __rsyslog_server_config_listen_port }}"
