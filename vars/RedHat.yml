@@ -4,13 +4,6 @@ __rsyslog_conf_file: /etc/rsyslog.conf
 __rsyslog_conf_dir: /etc/rsyslog.d
 __rsyslog_bin: /usr/sbin/rsyslogd
 __rsyslog_default_syslog_service_name: null
-__rsyslog_default_log_files:
-  - /var/log/auth.log
-  - /var/log/cron
-  - /var/log/debug
-  - /var/log/maillog
-  - /var/log/messages
-  - /var/log/security
 __rsyslog_config_FileOwner: root
 __rsyslog_config_FileGroup: root
 __rsyslog_server_config_listen_port:

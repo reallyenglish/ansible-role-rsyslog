@@ -54,18 +54,6 @@
   notify:
     - Restart rsyslog
 
-# TODO create logrotate module
-- name: Create logrotate configs for rsyslog_default_log_files
-  logrotate:
-    state: present
-    frequency: daily
-    rotate_count: 30
-    files:
-      - "{{ item }}"
-    restart_command: "kill -HUP `cat {{ rsyslog_pid_file }}`"
-  with_items: "{{ rsyslog_default_log_files }}"
-  when: 1 == 0
-
 - name: Ensure default syslog service for the platform is NOT running
   service:
     name: "{{ rsyslog_default_syslog_service_name }}"
