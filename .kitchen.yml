@@ -14,6 +14,7 @@ provisioner:
   ansible_verbose: true
   ansible_extra_flags: <%= ENV['ANSIBLE_EXTRA_FLAGS'] %>
   http_proxy: <%= ENV['ANSIBLE_PROXY'] %>
+  idempotency_test: true
   additional_copy_path:
     - extra_modules
     - filter_plugins

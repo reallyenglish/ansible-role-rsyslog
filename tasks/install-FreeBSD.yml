@@ -1,6 +1,6 @@
 ---
 
-- name: install rsyslog
+- name: Install rsyslog
   pkgng:
     pkg: rsyslog
     state: present
